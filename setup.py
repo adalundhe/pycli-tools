@@ -20,14 +20,14 @@ with open(os.path.join(current_directory, 'README.md'), "r") as readme:
     package_description = readme.read()
 
 setup(
-    name="zebra-python-cli",
-    version="0.2.4",
-    author="Zebra.com",
-    author_email="scorbett@thezebra.com",
+    name="pycli-tools",
+    version="0.1.0",
+    author="Sean Corbett",
+    author_email="sean.corbett@umontana.edu",
     description="A library for writing consistent CLI interfaces.",
     long_description=package_description,
     long_description_content_type="text/markdown",
-    url="https://gitlab.com/thezebra/libraries/zebra-python-cli",
+    url="https://github.com/scorbettUM/pycli-tools",
     packages=find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
