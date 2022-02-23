@@ -20,7 +20,7 @@ with open(os.path.join(current_directory, 'README.md'), "r") as readme:
     package_description = readme.read()
 
 setup(
-    name="pycli-tools",
+    name="py3cli-tools",
     version="0.1.1",
     author="Sean Corbett",
     author_email="sean.corbett@umontana.edu",
