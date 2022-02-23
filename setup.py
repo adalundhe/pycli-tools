@@ -21,7 +21,7 @@ with open(os.path.join(current_directory, 'README.md'), "r") as readme:
 
 setup(
     name="pycli-tools",
-    version="0.1.0",
+    version="0.1.1",
     author="Sean Corbett",
     author_email="sean.corbett@umontana.edu",
     description="A library for writing consistent CLI interfaces.",
@@ -36,7 +36,7 @@ setup(
     ],
     install_requires=[
         'configargparse',
-        'zebra-automate-py-logging'
+        'easy-logger-py'
     ],
     python_requires='>=3.6'
 )
