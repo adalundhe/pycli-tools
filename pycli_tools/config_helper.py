@@ -1,7 +1,7 @@
 from .arguments import Argument
 from .assembler import Assembler
 from .attribute_helper import AttributeHelper
-from zebra_automate_logging import Logger
+from easy_logger import Logger
 
 class ConfigHelper:
 

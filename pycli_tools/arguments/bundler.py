@@ -3,7 +3,7 @@
 import os
 import sys
 import importlib
-from zebra_automate_logging import Logger
+from easy_logger import Logger
 
 
 class Bundler:
