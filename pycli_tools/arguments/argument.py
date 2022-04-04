@@ -2,7 +2,9 @@ import configargparse
 import sys
 import os
 import json
+import traceback
 from .bundler import Bundler
+from easy_logger import Logger
 
 
 class Argument:
@@ -82,8 +84,14 @@ class Argument:
                 parsed_arg = bundler.discover()
                 
             except Exception as err:
-                print(err)
+                logger = Logger()
+                logger.setup('error')
+
+                session_logger = logger.generate_logger()
+                session_logger.error(traceback.format_exc())
+                session_logger.error(err)
                 parsed_arg = None
+                exit(0)
 
         self.value = parsed_arg
 

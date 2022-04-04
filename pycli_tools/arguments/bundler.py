@@ -43,6 +43,7 @@ class Bundler:
             yield item
 
     def discover(self) -> str:
+
         spec = importlib.util.spec_from_file_location(self.module_name, self.search_dir)
 
         if self.search_dir not in sys.path:
