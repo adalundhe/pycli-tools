@@ -21,7 +21,7 @@ with open(os.path.join(current_directory, 'README.md'), "r") as readme:
 
 setup(
     name="py3cli-tools",
-    version="0.1.3",
+    version="0.1.4",
     author="Sean Corbett",
     author_email="sean.corbett@umontana.edu",
     description="A library for writing consistent CLI interfaces.",

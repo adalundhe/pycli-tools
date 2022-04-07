@@ -1,8 +1,10 @@
-
-
 import os
 import sys
 import importlib
+import ntpath
+from pkgutil import iter_modules
+
+from pathlib import Path
 from easy_logger import Logger
 
 
@@ -12,9 +14,14 @@ class Bundler:
 
         self.class_type = options.get('class_type')
         self.package_name = options.get('package_name')
+        self._package = None
+        self._package_slug = None
 
         if self.package_name and len(self.package_name) > 0:
             self.module_name = self.package_name.split('.')[0]
+            self._package = ntpath.basename(self.package_name)
+            self._package_slug = self._package.split('.')[0]
+
         else:
             self.module_name = 'custom'
 
@@ -44,14 +51,17 @@ class Bundler:
 
     def discover(self) -> str:
 
-        spec = importlib.util.spec_from_file_location(self.module_name, self.search_dir)
+        package_dir = Path(self.search_dir).resolve().parent
+        package_dir_path = str(package_dir)
+        package_dir_module = package_dir_path.split('/')[-1]
+        spec = importlib.util.spec_from_file_location(f'{package_dir_module}.{self._package_slug}', self.search_dir)
 
         if self.search_dir not in sys.path:
-            sys.path.append(self.search_dir)
+            sys.path.append(str(package_dir.parent))
 
         module = importlib.util.module_from_spec(spec)
+        sys.modules[module.__name__] = module
 
-        sys.modules[self.module_name] = module
         spec.loader.exec_module(module)
         self.discovered = {cls.__name__: cls for cls in self.class_type.__subclasses__()}
 
