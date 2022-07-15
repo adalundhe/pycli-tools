@@ -1,3 +1,4 @@
+import inspect
 import os
 import sys
 import importlib
@@ -14,6 +15,7 @@ class Bundler:
 
         self.class_type = options.get('class_type')
         self.package_name = options.get('package_name')
+        self.contition = options.get('condition', lambda instance: instance)
         self._package = None
         self._package_slug = None
 
@@ -50,7 +52,6 @@ class Bundler:
             yield item
 
     def discover(self) -> str:
-
         package_dir = Path(self.search_dir).resolve().parent
         package_dir_path = str(package_dir)
         package_dir_module = package_dir_path.split('/')[-1]
@@ -63,6 +64,14 @@ class Bundler:
         sys.modules[module.__name__] = module
 
         spec.loader.exec_module(module)
+        print(module)
+        
+        self.discovered = {}
+        for name, obj in inspect.getmembers(module):
+            for instance in self.class_types :
+                if inspect.isclass(obj) and issubclass(obj, instance):
+                    self.discovered[name] = obj
+
         self.discovered = {cls.__name__: cls for cls in self.class_type.__subclasses__()}
 
         return list(self.discovered.values())
